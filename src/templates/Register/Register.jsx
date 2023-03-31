@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import styles from './Register.module.css';
+import { useAuthentication } from '../../hooks/useAuthentication';
 const Register = () => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const { createUser, error: authError, loading } = useAuthentication();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     const user = {
@@ -21,10 +24,13 @@ const Register = () => {
 
       return;
     }
-
-    console.log(user);
+    const res = await createUser(user);
+    console.log(res);
   };
 
+  useEffect(() => {
+    setError(authError);
+  }, [authError]);
   return (
     <div className={styles.register}>
       <h1>Cadastre-se</h1>
@@ -77,8 +83,16 @@ const Register = () => {
           />
         </label>
 
-        <input className="btn" type="submit" value="Cadastrar" />
-
+        {loading && (
+          <button className="btn" type="submit" disabled="disabled">
+            Aguarde...
+          </button>
+        )}
+        {!loading && (
+          <button className="btn" type="submit">
+            Cadastrar
+          </button>
+        )}
         {error && <p className="error">{error}</p>}
       </form>
     </div>
