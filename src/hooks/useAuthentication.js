@@ -13,15 +13,14 @@ import { useEffect, useState } from 'react';
 export const useAuthentication = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
-  const [cancelled, setCancelled] = useState(null);
+  const [cancelled, setCancelled] = useState(false);
 
-  const auth = getAuth();
-
-  const checkIfIsCancelled = () => {
+  function checkIfIsCancelled() {
     if (cancelled) {
       return;
     }
-  };
+  }
+  const auth = getAuth();
 
   const createUser = async (data) => {
     checkIfIsCancelled();
@@ -55,7 +54,7 @@ export const useAuthentication = () => {
   };
 
   useEffect(() => {
-    setCancelled(true);
+    return () => setCancelled(true);
   }, []);
 
   return {
