@@ -3,13 +3,13 @@ import styles from './Navbar.module.css';
 
 import { NavLink } from 'react-router-dom';
 
-//import { useAuthentication } from '../../hooks/useAuthentication';
+import { useAuthentication } from '../../hooks/useAuthentication';
 
 import { useAuthValue } from '../../context/AuthContext';
 
 const Navbar = () => {
   const { user } = useAuthValue();
-
+  const { logout } = useAuthentication();
   return (
     <nav className={styles.navbar}>
       <NavLink to="/" className={styles.brand}>
@@ -20,17 +20,31 @@ const Navbar = () => {
         {!user && (
           <>
             <li>
-              <NavLink to="/login">Login</NavLink>
+              <NavLink to="/login">Entrar</NavLink>
             </li>
             <li>
-              <NavLink to="/register">Register</NavLink>
+              <NavLink to="/register">Cadastrar</NavLink>
             </li>
           </>
         )}
-
+        {user && (
+          <>
+            <li>
+              <NavLink to="/posts/create">Criar Post</NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard">Dashboard</NavLink>
+            </li>
+          </>
+        )}
         <li>
-          <NavLink to="/about">About</NavLink>
+          <NavLink to="/about">Sobre</NavLink>
         </li>
+        {user && (
+          <li>
+            <button onClick={logout}>Sair</button>
+          </li>
+        )}
       </ul>
     </nav>
   );
