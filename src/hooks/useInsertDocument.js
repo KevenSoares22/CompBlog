@@ -35,6 +35,8 @@ export const useInsertDocument = (docCollection) => {
   const insertDocument = async (document) => {
     try {
       checkCancelledBeforeDispatch({ type: 'LOADING' });
+      console.log(document);
+      //dispatch({ type: 'LOADING' });
       const newDocument = { ...document, createdAt: Timestamp.now() };
       const insertedDocument = await addDoc(collection(db, docCollection), newDocument);
       checkCancelledBeforeDispatch({ type: 'INSERTED_DOC', payload: insertedDocument });
@@ -42,8 +44,9 @@ export const useInsertDocument = (docCollection) => {
       checkCancelledBeforeDispatch({ type: 'ERROR', payload: error.message });
     }
   };
+
   useEffect(() => {
-    setCancelled(true);
+    setCancelled(false);
   }, []);
   return { insertDocument, response };
 };

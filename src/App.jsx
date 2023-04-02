@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
+
 //Templates
 import Home from './templates/Home/Home.jsx';
 import About from './templates/About/About.jsx';
@@ -35,15 +36,17 @@ function App() {
       <AuthProvider value={{ user }}>
         <BrowserRouter>
           <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/about" element={<About />}></Route>
-            <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />}></Route>
-            <Route path="/register" element={!user ? <Register /> : <Navigate to="/" />}></Route>
-            <Route path="/posts/create" element={user ? <CreatePost /> : <Navigate to="/" />}></Route>
-            <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/" />}></Route>
-          </Routes>
 
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/about" element={<About />}></Route>
+              <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />}></Route>
+              <Route path="/register" element={!user ? <Register /> : <Navigate to="/" />}></Route>
+              <Route path="/posts/create" element={user ? <CreatePost /> : <Navigate to="/" />}></Route>
+              <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/" />}></Route>
+            </Routes>
+          </div>
           <Footer />
         </BrowserRouter>
       </AuthProvider>
