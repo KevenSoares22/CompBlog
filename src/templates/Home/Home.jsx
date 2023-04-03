@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 
 import styles from './Home.module.css';
 import { Link } from 'react-router-dom';
+import { useFetchDocuments } from '../../hooks/useFetchDocument';
 
 const Home = () => {
   const pageTitle = 'Olá, seja bem vindo';
   const [query, setQuery] = useState();
-  const [posts] = useState([]);
+  const { documents: posts, loading } = useFetchDocuments('posts');
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -20,6 +21,14 @@ const Home = () => {
       </form>
 
       <div>
+        {loading && <p>Carregando</p>}
+        {posts && (
+          <div>
+            {posts.map((post) => (
+              <p key={post.id}>{post.title}</p>
+            ))}
+          </div>
+        )}
         {posts && posts.length === 0 && (
           <div className={styles.noPosts}>
             <p>Não encontramos publicações</p>

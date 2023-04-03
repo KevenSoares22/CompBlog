@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { db } from '../firebase/config';
 
 export const useFetchDocuments = (docCollection, search = null, uid = null) => {
-  const [documents, setDocuments] = useState(null);
+  const [documents, setDocuments] = useState('');
   const [loading, setLoading] = useState(false);
-  const [cancelled, setCancelled] = useState(null);
+  const [cancelled, setCancelled] = useState(false);
   const [error, setError] = useState(null);
   useEffect(() => {
     async function loadData() {
@@ -34,6 +34,6 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
 
   useEffect(() => {
     return () => setCancelled(true);
-  }, []);
-  return documents, loading, error;
+  }, [cancelled]);
+  return { documents, loading, error };
 };
