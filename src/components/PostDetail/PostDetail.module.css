@@ -1,0 +1,42 @@
+
+
+.postsDetails{
+    margin-bottom: 40px;    
+
+
+
+    
+}
+
+.postsDetails .content{
+    text-align: left;
+
+
+}
+
+.tags{
+    display: flex;
+    color: rgb(82, 82, 82);
+
+}
+.hash{
+    font-weight: bold;
+    color: black;
+
+
+}
+.postsDetails img{
+
+    max-width: 600px;
+    max-height: 500px;
+
+}
+
+
+
+.createBy{
+    color:rgb(82, 82, 82);
+
+
+
+}

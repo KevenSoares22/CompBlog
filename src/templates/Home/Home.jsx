@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styles from './Home.module.css';
 import { Link } from 'react-router-dom';
 import { useFetchDocuments } from '../../hooks/useFetchDocument';
+import PostDetail from '../../components/PostDetail/PostDetail';
 
 const Home = () => {
   const pageTitle = 'Olá, seja bem vindo';
@@ -25,7 +26,7 @@ const Home = () => {
         {posts && (
           <div>
             {posts.map((post) => (
-              <p key={post.id}>{post.title}</p>
+              <PostDetail post={post} key={post.id} />
             ))}
           </div>
         )}
