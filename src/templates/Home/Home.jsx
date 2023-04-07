@@ -7,7 +7,7 @@ import PostDetail from '../../components/PostDetail/PostDetail';
 
 const Home = () => {
   const pageTitle = 'Olá, seja bem vindo';
-  const [query, setQuery] = useState();
+  const [query, setQuery] = useState('');
   const { documents: posts, loading } = useFetchDocuments('posts');
   const navigate = useNavigate();
 
