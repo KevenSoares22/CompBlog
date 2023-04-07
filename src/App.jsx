@@ -17,6 +17,7 @@ import { AuthProvider } from './context/AuthContext';
 import CreatePost from './templates/CreatePost/CreatePost';
 import Dashboard from './templates/Dashboard/Dashboard';
 import Search from './templates/Search/Search';
+import Post from './templates/Post/Post';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -37,12 +38,12 @@ function App() {
       <AuthProvider value={{ user }}>
         <BrowserRouter>
           <Navbar />
-
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/about" element={<About />}></Route>
               <Route path="/search" element={<Search />}></Route>
+              <Route path="/post/:id" element={<Post />}></Route>
 
               <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />}></Route>
               <Route path="/register" element={!user ? <Register /> : <Navigate to="/" />}></Route>

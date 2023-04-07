@@ -1,6 +1,7 @@
 import React from 'react';
 import P from 'prop-types';
 import styles from './PostDetail.module.css';
+import { Link } from 'react-router-dom';
 const PostDetail = ({ post }) => {
   return (
     <div className={styles.postsDetails}>
@@ -20,8 +21,9 @@ const PostDetail = ({ post }) => {
             </p>
           ))}
         </div>
-
-        <button className="btn btn-outline">Abrir</button>
+        <Link to={`/post/${post.id}`} className="btn btn-outline">
+          Abrir
+        </Link>
       </div>
     </div>
   );
