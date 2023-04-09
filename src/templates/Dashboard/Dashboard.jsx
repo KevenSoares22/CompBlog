@@ -4,12 +4,14 @@ import { useAuthValue } from '../../context/AuthContext';
 import { useFetchDocuments } from '../../hooks/useFetchDocument';
 import { Link } from 'react-router-dom';
 
+import styles from './Dashboard.module.css';
+
 const Dashboard = () => {
   const { user } = useAuthValue();
   const uid = user.id;
   const { documents: posts } = useFetchDocuments('posts', null, uid);
   return (
-    <div>
+    <div className={styles.dashboard}>
       <h1 className="introdution">Dashboard</h1>
 
       {posts && posts.length === 0 ? (
@@ -22,14 +24,23 @@ const Dashboard = () => {
         </div>
       ) : (
         <div>
-          <h1>Tem posts</h1>
+          <h1>Gerencie seus posts</h1>
         </div>
       )}
-
+      <div className={styles.post_header}>
+        <span>Titulo</span>
+        <span>Ações</span>
+      </div>
       {posts &&
         posts.map((post) => (
-          <div key={post.id}>
+          <div key={post.id} className={styles.post_row}>
             <h3>{post.title}</h3>
+            <div>
+              <Link to={`/post/${post.id}`} className="btn btn-outline">
+                Ver
+              </Link>
+              <Link className="btn btn-outline">Editar</Link>
+            </div>
           </div>
         ))}
     </div>
