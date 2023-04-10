@@ -2,6 +2,8 @@ import React from 'react';
 
 import { useAuthValue } from '../../context/AuthContext';
 import { useFetchDocuments } from '../../hooks/useFetchDocument';
+import { useDeleteDocument } from '../../hooks/useDeleteDocument';
+
 import { Link } from 'react-router-dom';
 
 import styles from './Dashboard.module.css';
@@ -10,10 +12,12 @@ const Dashboard = () => {
   const { user } = useAuthValue();
   const uid = user.id;
   const { documents: posts } = useFetchDocuments('posts', null, uid);
+
+  const { deleteDocument } = useDeleteDocument('posts');
+
   return (
     <div className={styles.dashboard}>
       <h1 className="introdution">Dashboard</h1>
-
       {posts && posts.length === 0 ? (
         <div>
           <h1>Sem posts{uid}</h1>
@@ -39,10 +43,13 @@ const Dashboard = () => {
               <Link to={`/post/${post.id}`} className="btn btn-outline">
                 Ver
               </Link>
-              <Link className="btn btn-outline">Editar</Link>
+              <Link className="btn btn-danger" onClick={() => deleteDocument(post.id)}>
+                Excluir
+              </Link>
             </div>
           </div>
         ))}
+      ;
     </div>
   );
 };

@@ -134,10 +134,19 @@ textarea{
 
 
 }
+.btn.btn-danger{
+    background: transparent;
+    color: red;
+    border: 1px solid red;
+    border-radius: 0;
+    padding: 6px 18px;
 
+
+
+}
 .btn.btn-danger:hover{
     background-color: red;
-    
+    color: rgb(255, 255, 255);
 
 
 }
