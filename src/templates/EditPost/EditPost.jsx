@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useInsertDocument } from '../../hooks/useInsertDocument';
+
 import { useAuthValue } from '../../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
+import { useUpdateDocument } from '../../hooks/useUpdateDocument';
 
 const EditPost = () => {
   const { id } = useParams();
@@ -12,9 +13,8 @@ const EditPost = () => {
   const [body, setBody] = useState('');
   const [tags, setTags] = useState([]);
   const [formError, setFormError] = useState('');
-  const { insertDocument, response } = useInsertDocument('posts');
+  const { updateDocument, response } = useUpdateDocument('posts');
   const { user } = useAuthValue();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,9 +43,11 @@ const EditPost = () => {
 
     if (formError) return;
     const tagsList = tags.split(',').map((tag) => tag.trim().toLowerCase());
-    insertDocument({ title, image, body, tagsList, uid: user.uid, createBy: user.displayName });
+    const data = { title, image, body, tagsList, uid: user.uid, createBy: user.displayName };
 
-    navigate('/');
+    updateDocument(id, data);
+
+    navigate('/dashboard');
   };
 
   return (
