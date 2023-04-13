@@ -18,6 +18,7 @@ import CreatePost from './templates/CreatePost/CreatePost';
 import Dashboard from './templates/Dashboard/Dashboard';
 import Search from './templates/Search/Search';
 import Post from './templates/Post/Post';
+import EditPost from './templates/EditPost/EditPost';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -49,6 +50,7 @@ function App() {
               <Route path="/register" element={!user ? <Register /> : <Navigate to="/" />}></Route>
               <Route path="/posts/create" element={user ? <CreatePost /> : <Navigate to="/login" />}></Route>
               <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />}></Route>
+              <Route path="/editpost/:id" element={user ? <EditPost /> : <Navigate to="/login" />}></Route>
             </Routes>
           </div>
           <Footer />
